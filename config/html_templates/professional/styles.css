@@ -1,0 +1,472 @@
+/*
+ * Badge Design System - Professional Template (v2.0 - Layout Refinements)
+ *
+ * This stylesheet implements the badge design system documented in docs/DESIGN.md
+ * Key design principles:
+ * - Typography hierarchy: 18pt (name) → 11pt (event) → 10pt (title) → 9pt (company) → 8pt (tags) → 7pt (social) → 6pt (location label)
+ * - Spacing system: Base units of 0.05in (xs), 0.08in (sm), 0.15in (md), 0.33in+ (lg)
+ * - Standard margins: 0.15in on all sides
+ * - 2:1 aspect ratio for interests band (2.7" × 1.35")
+ * - Refined vertical rhythm with tighter professional info grouping
+ * - Strengthened visual hierarchy and color consistency
+ *
+ * See docs/DESIGN.md for detailed rationale and visual consistency rules
+ */
+
+/* =============================================================================
+ * CSS CUSTOM PROPERTIES - Centralized Design Tokens
+ * =============================================================================
+ * Define all dimensional and spacing values here for easy modification.
+ * Changing these variables will update the design throughout the stylesheet.
+ */
+:root {
+  /* Badge dimensions */
+  --badge-width: 3in;
+  --badge-height: 4in;
+  --badge-content-width: 2.7in;  /* Total width minus margins (3in - 2×0.15in) */
+
+  /* Standard margins and spacing */
+  --margin-standard: 0.15in;      /* Used on all four badge edges */
+  --spacing-xs: 0.05in;           /* Minimal spacing */
+  --spacing-sm: 0.08in;           /* Small gaps (tag corners, small element spacing) */
+  --spacing-md: 0.15in;           /* Medium gaps (section spacing) */
+  --spacing-lg: 0.33in;           /* Large gaps (major section separation) */
+
+  /* Tag system dimensions */
+  --tag-corner-radius: 0.08in;    /* Consistent rounded corners */
+  --tag-padding-v: 0.06in;        /* Vertical padding (static) */
+  --tag-height-top: 0.22in;       /* Top tags container height */
+  --tag-height-bottom: 0.35in;    /* Bottom tags container height (matches micro badge) */
+  --micro-badge-size: 0.35in;     /* Micro badge diameter (circle) */
+  --micro-badge-gap: 0.10in;      /* Approximate gap reserved for micro badge */
+
+  /* Calculated widths for tag system */
+  --bottom-tags-width-with-micro: 2.25in;  /* 2.7in - 0.35in - 0.1in gap */
+  --bottom-tags-width-full: 2.7in;         /* Full width when no micro badge */
+
+  /* Event header dimensions */
+  --event-logo-size: 0.45in;      /* Square logo dimensions */
+  --qr-code-size: 0.45in;         /* Square QR code dimensions */
+  --sponsor-logo-width: 0.5in;
+  --sponsor-logo-height: 0.25in;
+
+  /* Professional info */
+  --prof-graphic-size: 0.4in;     /* Location/profession graphic size */
+  --prof-graphic-gap: 0.1in;      /* Gap between graphic and text */
+
+  /* Interests band */
+  --interests-band-width: 2.7in;  /* Full content width */
+  --interests-band-height: 1.35in; /* 2:1 aspect ratio (2.7 / 2) */
+
+  /* Z-index layers - centralized z-index management */
+  --z-base: 0;                    /* Base layer (interests band) */
+  --z-overlay: 10;                /* Overlay elements (tags, QR, logo, graphics) */
+
+  /* Common colors */
+  --color-primary-text: #3D405B;  /* Navy - name, title, event */
+  --color-secondary-text: #81B29A; /* Teal - company */
+  --color-tertiary-text: #9CA3AF; /* Gray - location, social */
+  --color-separator: #E5E7EB;     /* Light gray - divider line */
+  --color-white: #FFFFFF;         /* White - backgrounds, tag text */
+  --color-tag-default: #E07A5F;   /* Warm orange - default tag color */
+}
+
+/* Page Setup - 3" x 4" badge */
+@page {
+  size: var(--badge-width) var(--badge-height);
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Badge Container */
+.badge {
+  width: var(--badge-width);
+  height: var(--badge-height);
+  background: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Event Header */
+.event-name {
+  position: absolute;
+  left: 0.65in;
+  top: 0.2in; /* Adjusted for vertical centering with logo */
+  width: 1.75in; /* Full width between logo and QR code */
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 11pt;
+  color: var(--color-primary-text);
+  text-align: center;
+  overflow: hidden;
+  /* Multi-line wrapping with max 2 lines to avoid covering sponsor text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+}
+
+.sponsor {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 0.65in; /* Below QR code for full width */
+  width: var(--badge-content-width);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 6pt; /* Slightly larger for better readability */
+  color: var(--color-tertiary-text);
+  text-align: center;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.8; /* Subtle but visible */
+}
+
+/* Sponsor Logo */
+.sponsor-logo {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 0.95in;
+  width: var(--sponsor-logo-width);
+  height: var(--sponsor-logo-height);
+  object-fit: contain;
+}
+
+/* Event Logo */
+.event-logo {
+  position: absolute;
+  left: var(--margin-standard);
+  top: var(--margin-standard);
+  width: var(--event-logo-size);
+  height: var(--event-logo-size);
+  object-fit: contain;
+}
+
+/* =============================================================================
+ * TAGS - Categorical attendee information
+ * =============================================================================
+ *
+ * LAYOUT SYSTEM:
+ * - Top tags: First 2 tags, vertically centered at top: 0.85in
+ * - Bottom tags: Remaining 2-3 tags + optional micro badge, bottom-aligned at bottom: 0.15in
+ * - Bottom layout: space-between (standard tags left, micro badge right)
+ *
+ * AUTO-SHRINK ALGORITHM:
+ * Tags are sized by Python calculations in badge_renderer_html.py before HTML generation.
+ * Progressive reduction order: gap (0.08→0.06→0.04) → padding (0.12→0.10→0.08) → font-size (8→7.5→7)
+ * Safety factor: 93% of max width to account for font rendering variations.
+ *
+ * CRITICAL CSS CONSTRAINTS - DO NOT MODIFY:
+ * ⚠️ flex-shrink: 0 - REQUIRED to prevent browser from overriding Python calculations
+ * ⚠️ DO NOT add min-width: 0 - This allows infinite browser-controlled shrinking
+ * ⚠️ Dynamic gaps - Bottom tag gap MUST be set via inline style, not static CSS
+ *
+ * See docs/DESIGN.md#tag-system for complete documentation.
+ * See docs/TAG_SYSTEM.md for detailed troubleshooting guide.
+ */
+
+/* Tags - Top 2 under event header - Container for vertical centering */
+.tags-top {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 0.85in; /* Slightly more space below sponsor text */
+  width: var(--badge-content-width);
+  height: var(--tag-height-top);
+  display: flex;
+  align-items: center; /* Center tags vertically within fixed height */
+  white-space: nowrap;
+}
+
+/* Tags - Bottom 2-3 with flexbox spacing - Container for bottom alignment
+ * CRITICAL LAYOUT PROPERTIES:
+ * - justify-content: space-between - Separates standard tags (left) from micro badge (right)
+ * - align-items: flex-end - Bottom-aligns ALL tags to same baseline
+ * - DO NOT change alignment properties - Required for consistent tag baseline
+ */
+.tags-bottom {
+  position: absolute;
+  left: var(--margin-standard);
+  bottom: var(--margin-standard);
+  width: var(--badge-content-width);
+  height: var(--tag-height-bottom);
+  display: flex;
+  justify-content: space-between; /* CRITICAL: Standard tags left, micro badge right */
+  align-items: flex-end; /* CRITICAL: Bottom align all tags to same baseline */
+  z-index: var(--z-overlay);
+}
+
+/* Individual tag element
+ * ⚠️ CRITICAL CONSTRAINT - flex-shrink MUST remain 0:
+ * Without flex-shrink: 0, the browser's flexbox algorithm will shrink tags below their
+ * calculated size, causing text truncation even when there's available space. The browser
+ * doesn't know about the 93% safety factor used in Python calculations and will aggressively
+ * shrink to fit 100% width.
+ *
+ * ⚠️ DO NOT ADD min-width: 0 - This tells the browser tags can shrink to zero width,
+ * completely breaking the auto-shrink algorithm.
+ *
+ * Font size, padding, and gap are set via INLINE STYLES from Python calculations.
+ * CSS values here are defaults only - they will be overridden.
+ */
+.tag {
+  display: inline-block; /* Simple block-level element for predictable layout */
+  background-color: var(--color-tag-default);
+  color: var(--color-white);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 8pt; /* Default only - overridden by inline style */
+  font-weight: 600; /* Bolder for more impact */
+  padding: var(--tag-padding-v) 0.12in; /* Vertical static, horizontal overridden by inline style */
+  border-radius: var(--tag-corner-radius);
+  white-space: nowrap;
+  line-height: 1.0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  flex-shrink: 0; /* ⚠️ CRITICAL: Don't shrink - trust Python auto-shrink calculations */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for long text on right side only */
+}
+
+/* Micro-Tag - Circular badge for compact values (e.g., "2-4", "20+", "VIP") */
+.tag-micro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--micro-badge-size);
+  height: var(--micro-badge-size);
+  border-radius: 50%; /* Perfect circle */
+  background-color: var(--color-tag-default);
+  color: var(--color-white);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10pt; /* Larger font for better readability in small circle */
+  font-weight: 700; /* Bold for impact */
+  line-height: 1.0;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.tag-micro:last-child {
+  margin-right: 0; /* No margin on last tag */
+}
+
+/* Container for regular tags - flex container to group tags on left
+ * CRITICAL: This container groups standard tags on the left side, while the parent
+ * .tags-bottom container uses space-between to push the micro badge to the right.
+ *
+ * ⚠️ Gap MUST be set via inline style - Python calculates optimal gap (0.04-0.08in)
+ * based on tag widths. CSS gap here is default only and will be overridden.
+ *
+ * ⚠️ align-items: flex-end - REQUIRED to maintain same baseline as parent container
+ */
+.tags-bottom .tags-group {
+  display: flex;
+  gap: 0.08in; /* Default only - overridden by inline style from Python calculations */
+  align-items: flex-end; /* CRITICAL: Bottom align standard tags to same baseline */
+}
+
+/* Micro Badge - Part of flex layout with regular tags */
+.micro-badge-identity {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--micro-badge-size);
+  height: var(--micro-badge-size);
+  border-radius: 50%; /* Perfect circle */
+  background-color: var(--color-tag-default);
+  color: var(--color-white);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 8pt; /* Smaller font to fit properly in circle */
+  font-weight: 700;
+  line-height: 1.0;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Don't shrink the circle */
+}
+
+/* Attendee Info */
+/* Identity Unit: Name + Location + Social grouped together */
+.identity-unit {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 1.20in;
+  width: var(--badge-content-width);
+}
+
+.identity-unit .name {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 18pt; /* Default, overridden by inline style */
+  color: var(--color-primary-text);
+  text-align: left;
+  white-space: nowrap; /* Keep name on single line */
+  overflow: hidden; /* Hide any overflow */
+  letter-spacing: -0.01em; /* Tighter tracking for more impact */
+  line-height: 1.1;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Identity Row: Container for location + social */
+.identity-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 0.16in; /* Match text height */
+}
+
+.identity-unit .location-in-identity {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 7pt;
+  color: var(--color-tertiary-text);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.0;
+  flex: 1; /* Take available space */
+  min-width: 0; /* Allow shrinking */
+}
+
+/* Social in Identity: Container for handle + icon */
+.social-in-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.06in; /* Gap between handle and icon */
+  flex-shrink: 0; /* Don't shrink social elements */
+  margin-left: auto; /* Push to right edge of identity-row */
+}
+
+/* Separator between identity and professional info */
+.identity-separator {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 1.75in; /* Below name + location + gap - adjusted to prevent collision */
+  width: var(--badge-content-width);
+  height: 0;
+  border: none;
+  border-top: 1px solid var(--color-separator);
+  margin: 0;
+}
+
+/* Professional Info Block: Graphic + Title + Company */
+.professional-info {
+  position: absolute;
+  left: var(--margin-standard);
+  /* top set dynamically via inline style */
+  width: var(--badge-content-width);
+}
+
+.prof-graphic {
+  position: absolute;
+  left: 0;
+  /* top offset set dynamically for vertical centering */
+  width: var(--prof-graphic-size);
+  height: var(--prof-graphic-size);
+  object-fit: contain;
+  z-index: var(--z-overlay);
+}
+
+.prof-text-container {
+  /* margin-left applied conditionally via inline style in template */
+  /* When location graphic exists: 0.5in (0.4in graphic + 0.1in gap) */
+  /* When no graphic: 0 (left-aligned) */
+}
+
+.prof-text-container .title {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  color: var(--color-primary-text);
+  text-align: left;
+  /* Multi-line text wrapping with 2 line limit - enforce 60 char max at data level */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.2;
+  max-height: calc(10pt * 1.2 * 2); /* font-size * line-height * max-lines */
+}
+
+.prof-text-container .company {
+  margin-top: 0.04in; /* Tighter gap below title for better grouping */
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 9pt;
+  color: var(--color-secondary-text);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* Social Handle and Icon - Within Identity Row */
+.social-handle {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 7pt;
+  color: var(--color-tertiary-text);
+  line-height: 1.0; /* Match location/identity line-height exactly */
+  white-space: nowrap;
+  font-weight: normal; /* Match location/identity weight */
+}
+
+.social-icon {
+  font-size: 9pt; /* Font Awesome icon size */
+  color: var(--color-tertiary-text);
+  line-height: 1.0;
+}
+
+.location {
+  position: absolute;
+  left: var(--margin-standard);
+  top: 1.95in;
+  width: var(--badge-content-width);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 9pt;
+  color: var(--color-tertiary-text);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* QR Code - Top Right Corner */
+.qr-code {
+  position: absolute;
+  right: var(--margin-standard);
+  top: var(--margin-standard);
+  width: var(--qr-code-size);
+  height: var(--qr-code-size);
+  object-fit: contain;
+  z-index: var(--z-overlay);
+}
+
+/* Interests Band
+ * AI-generated illustration representing attendee interests
+ * See docs/DESIGN.md#interests-illustration-integration for:
+ * - 2:1 aspect ratio (2.7" × 1.35")
+ * - Dynamic positioning: Bottom position calculated per badge based on title wrapping
+ *   - No title: 0.70in (maximum spacing)
+ *   - 1-line title: 0.60in (balanced ~0.15in gap)
+ *   - 2-line title: 0.45in (tight ~0.03in gap)
+ * - Vertically balanced between company name and bottom tags
+ * - Connection to AI prompt rules (equal padding, vertical staggering, consistent stroke weights)
+ */
+.interests-band {
+  position: absolute;
+  left: var(--margin-standard);
+  /* bottom position set via inline style (dynamic per badge based on title lines) */
+  width: var(--interests-band-width);
+  height: var(--interests-band-height);
+  object-fit: cover;
+  border-radius: var(--tag-corner-radius);
+  z-index: var(--z-base); /* Base layer, below overlay elements */
+}

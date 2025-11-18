@@ -1,0 +1,213 @@
+[
+  {
+    "event_id": "cohatch_afterhours",
+    "display_name": "AfterHours at COHATCH",
+    "date": "Nov 15-17, 2025",
+    "sponsor": "Presented by Columbus Chamber of Commerce",
+    "logo_path": "assets/event_logos/columbus-chamber-logo.png",
+    "sponsor_logo_path": null,
+    "template_id": "professional_template",
+    "tags": [
+      {
+        "name": "Committee",
+        "type": "select",
+        "values": [
+          "Gov Affairs",
+          "Small Business",
+          "Member Engagement",
+          "Innovation Council",
+          "Logistics Council",
+          "Women's Collective",
+          "Chamber Staff",
+          "Chamber Board"
+        ],
+        "color": "#E07A5F"
+      },
+      {
+        "name": "Years as Member",
+        "type": "select",
+        "display_type": "micro",
+        "values": [
+          "1st",
+          "2-4",
+          "5-9",
+          "10-19",
+          "20+"
+        ],
+        "color": "#81B29A"
+      },
+      {
+        "name": "Rep",
+        "type": "write_in",
+        "values": [],
+        "color": "#F2CC8F"
+      },
+      {
+        "name": "Industry",
+        "type": "select",
+        "values": [
+          "Healthcare",
+          "Insurance",
+          "Government",
+          "Logistics",
+          "Professional Svcs",
+          "Education",
+          "Nonprofits",
+          "Hospitality"
+        ],
+        "color": "#3D405B"
+      },
+      {
+        "name": "Membership Level",
+        "type": "select",
+        "values": [
+          "Small Business",
+          "Corporate",
+          "Corporate Plus",
+          "Executive"
+        ],
+        "color": "#F4A261"
+      }
+    ],
+    "testing_notes": [
+      "Standard baseline event with all common fields",
+      "5 tag categories (moderate complexity)",
+      "Mix of select and write_in tag types",
+      "Mix of standard and micro display types",
+      "Event logo but no sponsor logo",
+      "Tests typical real-world event configuration"
+    ]
+  },
+  {
+    "event_id": "short_name_event",
+    "display_name": "BBQ",
+    "date": "Jun 1, 2025",
+    "sponsor": null,
+    "logo_path": "assets/event_logos/spring_block_party.png",
+    "sponsor_logo_path": null,
+    "template_id": "professional_template",
+    "tags": [
+      {
+        "name": "Guest Type",
+        "type": "select",
+        "values": [
+          "VIP",
+          "General"
+        ],
+        "color": "#FF6B6B"
+      }
+    ],
+    "testing_notes": [
+      "**CRITICAL** Very short event name (3 chars: 'BBQ')",
+      "Tests minimum event name length handling",
+      "Minimal tag configuration (1 category only)",
+      "No sponsor text (graceful null handling)",
+      "Tests event name rendering at small sizes"
+    ]
+  },
+  {
+    "event_id": "long_name_event",
+    "display_name": "International Tech Conference",
+    "date": "September 20-22, 2025",
+    "sponsor": "Proudly Sponsored by Global Tech Leaders Association",
+    "logo_path": "assets/event_logos/columbus_region_logistics_council.png",
+    "sponsor_logo_path": null,
+    "template_id": "professional_template",
+    "tags": [
+      {
+        "name": "Attendee Type",
+        "type": "select",
+        "values": [
+          "Speaker",
+          "Sponsor",
+          "Attendee",
+          "Press"
+        ],
+        "color": "#1ABC9C"
+      },
+      {
+        "name": "Track",
+        "type": "select",
+        "values": [
+          "AI/ML",
+          "Cloud",
+          "Security",
+          "Data"
+        ],
+        "color": "#E74C3C"
+      }
+    ],
+    "testing_notes": [
+      "Event name at boundary (29 chars, max 30)",
+      "Long sponsor text (50+ chars) - tests sponsor rendering",
+      "Tests event name near maximum constraint",
+      "2 tag categories (minimal multi-category setup)",
+      "Date format variation: 'September 20-22, 2025'"
+    ]
+  },
+  {
+    "event_id": "sponsored_event",
+    "display_name": "Healthcare Innovation Forum",
+    "date": "Aug 5-7, 2025",
+    "sponsor": "Presented by MedTech Solutions Inc.",
+    "logo_path": "assets/event_logos/ohio_business_meetup.png",
+    "sponsor_logo_path": null,
+    "template_id": "professional_template",
+    "tags": [
+      {
+        "name": "Role",
+        "type": "select",
+        "values": [
+          "Presenter",
+          "Attendee",
+          "Exhibitor"
+        ],
+        "color": "#1ABC9C"
+      },
+      {
+        "name": "Specialty",
+        "type": "select",
+        "values": [
+          "Clinical",
+          "Research",
+          "Admin",
+          "Tech"
+        ],
+        "color": "#E74C3C"
+      },
+      {
+        "name": "Organization",
+        "type": "write_in",
+        "values": [],
+        "color": "#F39C12"
+      }
+    ],
+    "testing_notes": [
+      "Event with sponsor text but no sponsor logo",
+      "Tests sponsor text rendering without logo",
+      "3 tag categories (mid-range complexity)",
+      "Mix of select and write_in tag types",
+      "Healthcare industry context"
+    ]
+  },
+  {
+    "event_id": "minimal_event",
+    "display_name": "Community Meetup",
+    "date": null,
+    "sponsor": null,
+    "logo_path": null,
+    "sponsor_logo_path": null,
+    "template_id": "professional_template",
+    "tags": [],
+    "testing_notes": [
+      "**CRITICAL** Minimal event - all optional fields null",
+      "Tests graceful degradation with minimal event data",
+      "No date (null handling)",
+      "No sponsor (null handling)",
+      "No event logo (null handling)",
+      "No sponsor logo (null handling)",
+      "No tags (empty array handling)",
+      "Verifies badges still render with minimal event configuration"
+    ]
+  }
+]

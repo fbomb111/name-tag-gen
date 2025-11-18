@@ -1,0 +1,760 @@
+[
+  {
+    "id": "user_001",
+    "name": "Sarah Chen",
+    "title": "UX Designer",
+    "company": "MedFlow",
+    "location": "San Francisco, CA",
+    "pronouns": "she/her",
+    "profile_url": "https://httpbin.org/html",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "sarahchen",
+    "raw_interests": "I'm a parent of two young kids and love spending my free time rock climbing when I can get away! Also a bit of a coffee snob - always looking for the best roast in the Bay Area.",
+    "interests": [
+      "Rock climbing",
+      "Parent of two kids",
+      "Coffee enthusiast"
+    ],
+    "interests_normalized": [
+      "Rock climbing",
+      "Parent of two kids",
+      "Coffee"
+    ],
+    "testing_notes": [
+      "Baseline test with all common fields populated",
+      "Name: 10-20 chars (typical length)",
+      "3 interests (minimum recommended count)"
+    ]
+  },
+  {
+    "id": "user_002",
+    "name": "Cher",
+    "title": "Entertainment Director",
+    "company": "Believe Entertainment",
+    "location": "Los Angeles, CA",
+    "profile_url": "https://example.com",
+    "preferred_social_platform": "instagram",
+    "social_handle": "@cher",
+    "raw_interests": "Music has been my life for decades. I love performing, connecting with fans, and exploring new creative projects. Also passionate about advocacy work and supporting important causes.",
+    "interests": [
+      "Music performance",
+      "Creative projects",
+      "Advocacy work"
+    ],
+    "interests_normalized": [
+      "Music performance",
+      "Creative projects",
+      "Advocacy"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Mononym (single-word name with no space)",
+      "Tests name field without surname"
+    ]
+  },
+  {
+    "id": "user_003",
+    "name": "Bo Yi",
+    "title": "Meditation Teacher",
+    "company": "Zen Center",
+    "location": "Portland, OR",
+    "pronouns": "they/them",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "raw_interests": "Teaching mindfulness meditation, practicing tai chi in the mornings, and studying ancient philosophy texts.",
+    "interests": [
+      "Mindfulness meditation",
+      "Tai chi",
+      "Ancient philosophy"
+    ],
+    "interests_normalized": [
+      "Meditation",
+      "Tai chi",
+      "Philosophy"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Very short name (5 chars: 'Bo Yi')",
+      "Should render at full 18pt font with no scaling"
+    ]
+  },
+  {
+    "id": "user_004",
+    "name": "Alex Rivera",
+    "title": null,
+    "company": null,
+    "location": null,
+    "profile_url": null,
+    "preferred_social_platform": null,
+    "social_handle": null,
+    "raw_interests": "I don't really have any specific hobbies or interests at this time.",
+    "interests": [],
+    "interests_normalized": [],
+    "testing_notes": [
+      "**CRITICAL** Minimal badge - only name field populated",
+      "All optional fields null: title, company, location, interests, social, QR",
+      "Tests graceful degradation with minimal data",
+      "No QR code (profile_url is null)",
+      "Raw interests provided but too generic to extract any interests"
+    ]
+  },
+  {
+    "id": "user_005",
+    "name": "Priya Kowalski",
+    "title": "Commercial Real Estate Broker",
+    "company": "Summit Realty Group",
+    "location": "Austin, TX",
+    "profile_url": "https://dummyjson.com",
+    "preferred_social_platform": "instagram",
+    "social_handle": "@priyarealty",
+    "raw_interests": "I love working with houseplants - my apartment is basically a jungle! When I travel for work or fun, I'm always taking photos. I have two cats who keep me company, and I love going to concerts. I'm also into yoga, cooking new recipes, reading mystery novels, and hiking on weekends.",
+    "interests": [
+      "Houseplants",
+      "Travel photography",
+      "Cat mom (2 cats)",
+      "Concerts",
+      "Yoga",
+      "Cooking",
+      "Mystery novels",
+      "Hiking"
+    ],
+    "interests_normalized": [
+      "Houseplants",
+      "Travel photography",
+      "Cat mom (2 cats)",
+      "Concerts",
+      "Yoga",
+      "Cooking",
+      "Mystery novels",
+      "Hiking"
+    ],
+    "testing_notes": [
+      "Name: 20-40 chars (medium length)",
+      "8 interests (maximum recommended count)",
+      "Tests interest count upper boundary"
+    ]
+  },
+  {
+    "id": "user_006",
+    "name": "Raj Patel",
+    "title": "CEO",
+    "company": "IBM",
+    "location": "Los Angeles, CA",
+    "pronouns": "he/him",
+    "profile_url": null,
+    "preferred_social_platform": "twitter",
+    "social_handle": "@rajceo",
+    "raw_interests": "I focus on strategic leadership and innovation. Outside work, I enjoy playing golf, reading business books, and spending time with my family.",
+    "interests": [
+      "Strategic leadership",
+      "Golf",
+      "Business books",
+      "Family time"
+    ],
+    "interests_normalized": [
+      "Leadership",
+      "Golf",
+      "Business books",
+      "Family time"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Very short values across multiple fields",
+      "Title: 'CEO' (3 chars), Company: 'IBM' (3 chars)",
+      "Tests minimum field length handling",
+      "No QR code despite otherwise complete data"
+    ]
+  },
+  {
+    "id": "user_007",
+    "name": "Sean O'Connor",
+    "title": "Software Engineer",
+    "company": "Tech Innovations Inc.",
+    "location": "Dublin, Ireland",
+    "profile_url": "https://example.org",
+    "preferred_social_platform": "github",
+    "social_handle": "seanoc",
+    "raw_interests": "I'm passionate about open-source software development, contributing to various projects on GitHub. I also love Irish traditional music, playing the fiddle at local sessions, and hiking through the Wicklow Mountains.",
+    "interests": [
+      "Open-source development",
+      "Irish traditional music",
+      "Fiddle playing",
+      "Hiking"
+    ],
+    "interests_normalized": [
+      "Software development",
+      "Traditional music",
+      "Fiddle",
+      "Hiking"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Apostrophe in name (O'Connor)",
+      "Tests special character rendering in primary text field"
+    ]
+  },
+  {
+    "id": "user_008",
+    "name": "Jamie Martinez",
+    "title": "Marine Biologist",
+    "company": "Oceanic Research Institute",
+    "location": "Atlantis, Lost Kingdom",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "preferred_social_platform": "twitter",
+    "social_handle": "@oceanexplorer",
+    "raw_interests": "Studying marine ecosystems, particularly coral reefs. I love scuba diving, underwater photography, and ocean conservation work.",
+    "interests": [
+      "Marine ecosystems",
+      "Scuba diving",
+      "Underwater photography",
+      "Ocean conservation"
+    ],
+    "interests_normalized": [
+      "Marine biology",
+      "Scuba diving",
+      "Underwater photography",
+      "Conservation"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Invalid location (Atlantis, Lost Kingdom)",
+      "Tests geocoding failure - should use original text when geocoding fails",
+      "No location graphic should render"
+    ]
+  },
+  {
+    "id": "user_009",
+    "name": "Katherine Anderson",
+    "title": "Senior Vice President of Digital Transformation & Strategy",
+    "company": "Northwestern Mutual",
+    "location": "Short North, Columbus, OH",
+    "pronouns": "she/her",
+    "profile_url": "https://dummyjson.com",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "katebizdev",
+    "raw_interests": "I enjoy reading, playing euchre with friends, and taking walks around the neighborhood. Love going to karaoke nights and working in my garden. I'm a wine enthusiast, love to travel and take photos. Married with 3 kids and a cat. I volunteer for Pelotonia.",
+    "interests": [
+      "Reading",
+      "Euchre",
+      "Walking",
+      "Karaoke",
+      "Gardening",
+      "Wine enthusiast",
+      "Travel",
+      "Photography",
+      "Married with 3 kids and 1 cat",
+      "Pelotonia volunteer"
+    ],
+    "interests_normalized": [
+      "Reading",
+      "Euchre",
+      "Karaoke",
+      "Gardening",
+      "Wine",
+      "Photography",
+      "Married with 3 kids and 1 cat",
+      "Pelotonia volunteer"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Very long title (74 chars)",
+      "Should wrap to 2 lines with proper overflow handling",
+      "8 interests normalized from 10 original"
+    ]
+  },
+  {
+    "id": "user_010",
+    "name": "Morgan Blake",
+    "title": "Freelance Writer",
+    "company": "Self-Employed",
+    "location": "Brooklyn, NY",
+    "profile_url": null,
+    "raw_interests": "I write and I read. Sometimes I take walks.",
+    "interests": [
+      "Writing",
+      "Reading"
+    ],
+    "interests_normalized": [
+      "Writing",
+      "Reading"
+    ],
+    "testing_notes": [
+      "2 interests (below minimum recommended count of 3)",
+      "Tests system behavior with minimal interest data",
+      "No QR code (profile_url is null)"
+    ]
+  },
+  {
+    "id": "user_011",
+    "name": "Abdul Rahman bin Mohammed Al-Sayed",
+    "title": "International Business Development Manager",
+    "company": "Global Trade Solutions",
+    "location": "Dubai, UAE",
+    "profile_url": "https://httpbin.org",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "abdulrahman-alsayed",
+    "raw_interests": "I practice Arabic calligraphy as a hobby and love desert hiking when I'm not working. I'm also really into coffee culture - always seeking out the best specialty roasts.",
+    "interests": [
+      "Arabic calligraphy",
+      "Desert hiking",
+      "Coffee culture"
+    ],
+    "interests_normalized": [
+      "Calligraphy",
+      "Desert hiking",
+      "Coffee"
+    ],
+    "testing_notes": [
+      "Arabic patronymic naming (bin Mohammed Al-Sayed)",
+      "Tests cultural name format with connecting particles"
+    ]
+  },
+  {
+    "id": "user_012",
+    "name": "李娜",
+    "title": "Product Manager",
+    "company": "字节跳动",
+    "location": "北京, 中国",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "lina-pm",
+    "raw_interests": "I love playing badminton, practicing calligraphy, and exploring new restaurants in Beijing. I'm also learning traditional Chinese painting.",
+    "interests": [
+      "Badminton",
+      "Calligraphy",
+      "Food exploration",
+      "Traditional Chinese painting"
+    ],
+    "interests_normalized": [
+      "Badminton",
+      "Calligraphy",
+      "Food exploration",
+      "Traditional painting"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Chinese characters throughout (name, company, location)",
+      "Tests unicode rendering and font fallback for non-Latin scripts",
+      "Eastern name order (family name first)"
+    ]
+  },
+  {
+    "id": "user_013",
+    "name": "Taylor Kim",
+    "title": "Media Relations Director",
+    "company": "AT&T / Warner Bros. Discovery",
+    "location": "New York, NY",
+    "pronouns": "she/they",
+    "profile_url": "https://dummyjson.com",
+    "preferred_social_platform": "twitter",
+    "social_handle": "@taylorpr",
+    "raw_interests": "I work in media relations and love following industry trends. Outside of work, I enjoy running marathons, cooking Korean food, and practicing photography. Big fan of film noir classics.",
+    "interests": [
+      "Industry trends",
+      "Marathon running",
+      "Korean cooking",
+      "Photography",
+      "Film noir"
+    ],
+    "interests_normalized": [
+      "Media trends",
+      "Marathon running",
+      "Korean cooking",
+      "Photography",
+      "Classic films"
+    ],
+    "testing_notes": [
+      "Special characters in company: ampersand (&) and forward slash (/)",
+      "Pronouns: 'she/they' format variant"
+    ]
+  },
+  {
+    "id": "user_014",
+    "name": "Björk Magnúsdóttir",
+    "title": "Creative Director",
+    "company": "Nordic Design Studio",
+    "location": "Reykjavik, Iceland",
+    "profile_url": "https://httpbin.org/html",
+    "preferred_social_platform": "instagram",
+    "social_handle": "@bjork_creative_reykjavik",
+    "raw_interests": "Icelandic nature inspires all my work. I love hiking to waterfalls, photographing the Northern Lights, and soaking in hot springs. I'm also into experimental music and textile arts.",
+    "interests": [
+      "Nature photography",
+      "Hiking",
+      "Northern Lights",
+      "Hot springs",
+      "Experimental music",
+      "Textile arts"
+    ],
+    "interests_normalized": [
+      "Nature photography",
+      "Hiking",
+      "Northern Lights",
+      "Hot springs",
+      "Experimental music",
+      "Textile arts"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Diacritics in name (Björk Magnúsdóttir)",
+      "Very long social handle (27 chars)",
+      "Tests Latin extended characters"
+    ]
+  },
+  {
+    "id": "user_015",
+    "name": "María José García-Hernández",
+    "title": "Community Engagement Director",
+    "company": "Comunidad Hispana",
+    "location": "San Juan, Puerto Rico",
+    "profile_url": "https://example.com",
+    "preferred_social_platform": "facebook",
+    "social_handle": "maria.garcia.hernandez",
+    "raw_interests": "I'm passionate about community organizing and cultural preservation. I teach salsa dancing on weekends, love cooking traditional Puerto Rican food, and I'm learning to play cuatro.",
+    "interests": [
+      "Community organizing",
+      "Cultural preservation",
+      "Salsa dancing",
+      "Puerto Rican cuisine",
+      "Cuatro (instrument)"
+    ],
+    "interests_normalized": [
+      "Community organizing",
+      "Cultural preservation",
+      "Salsa dancing",
+      "Puerto Rican cuisine",
+      "Cuatro"
+    ],
+    "testing_notes": [
+      "Spanish double surname with hyphen (García-Hernández)",
+      "Latin accents in first name (María José)",
+      "Tests combined Latin extended + hyphenation"
+    ]
+  },
+  {
+    "id": "user_016",
+    "name": "Anastasia Mikhailovna Kovalenko",
+    "title": "Chief Technology Officer",
+    "company": "Digital Innovations Ltd.",
+    "location": "Moscow, Russia",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "anastasia-kovalenko",
+    "raw_interests": "I trained in ballet when I was younger and still love attending performances. I play chess to stay sharp and I'm an avid reader of Russian literature, especially Dostoevsky and Tolstoy.",
+    "interests": [
+      "Ballet",
+      "Chess",
+      "Russian literature",
+      "Dostoevsky",
+      "Tolstoy"
+    ],
+    "interests_normalized": [
+      "Ballet",
+      "Chess",
+      "Russian literature"
+    ],
+    "testing_notes": [
+      "Russian patronymic (three-part name: Anastasia Mikhailovna Kovalenko)",
+      "Tests name truncation if patronymic causes overflow"
+    ]
+  },
+  {
+    "id": "user_017",
+    "name": "Cameron Wright",
+    "title": "Senior Vice President of Digital Transformation & Strategy",
+    "company": "Enterprise Solutions Corporation",
+    "location": "Chicago, IL",
+    "pronouns": "he/him",
+    "profile_url": "https://dummyjson.com",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "cameronwright",
+    "raw_interests": "Leading digital transformation initiatives across global enterprises. I'm passionate about emerging technologies, change management, and strategic innovation.",
+    "interests": [
+      "Digital transformation",
+      "Emerging technologies",
+      "Change management",
+      "Strategic innovation"
+    ],
+    "interests_normalized": [
+      "Digital transformation",
+      "Emerging tech",
+      "Change management",
+      "Innovation"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Extremely long title (74 chars) exceeding 2-line capacity",
+      "Tests CSS line-clamp truncation with ellipsis"
+    ]
+  },
+  {
+    "id": "user_018",
+    "name": "Jordan Taylor",
+    "title": "Marketing Coordinator",
+    "company": "Brand Collective",
+    "location": "Seattle, WA",
+    "profile_url": "https://example.org",
+    "raw_interests": "I'm obsessed with my Peloton bike and hit up SoulCycle classes when I can. Love my morning Starbucks runs before heading to my CrossFit gym. I run in my Nike shoes, follow LeBron James religiously, and I'm a huge Yankees fan. Never miss a Taylor Swift concert! I track everything on my Apple Watch, drive a Tesla Model 3, and I'm constantly shopping on Amazon. Binge-watching Netflix shows is my weekend vibe.",
+    "interests": [
+      "Peloton bike",
+      "SoulCycle classes",
+      "Starbucks coffee",
+      "CrossFit",
+      "Nike running",
+      "LeBron James fan",
+      "Yankees fan",
+      "Taylor Swift concerts",
+      "Apple Watch",
+      "Tesla Model 3",
+      "Amazon shopping",
+      "Netflix binging"
+    ],
+    "interests_normalized": [
+      "Indoor cycling",
+      "Group fitness",
+      "Coffee",
+      "Fitness training",
+      "Running",
+      "Basketball fan",
+      "Baseball fan",
+      "Pop music concerts"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Brand overload in raw interests (15+ trademarked brands)",
+      "Tests AI normalization: brands → generic categories",
+      "Examples: Nike → Running, Starbucks → Coffee, LeBron James → Basketball fan"
+    ]
+  },
+  {
+    "id": "user_019",
+    "name": "Riley Morgan",
+    "title": "Political Consultant",
+    "company": "Advocacy Partners",
+    "location": "Washington, DC",
+    "profile_url": "https://example.net",
+    "preferred_social_platform": "twitter",
+    "social_handle": "@rileypolitics",
+    "raw_interests": "I'm deeply involved in political campaigns and advocacy work. I'm passionate about climate change policy, gun violence prevention, healthcare reform, and voting rights. I also volunteer with several faith-based community organizations.",
+    "interests": [
+      "Political campaigns",
+      "Climate change policy",
+      "Gun violence prevention",
+      "Healthcare reform",
+      "Voting rights",
+      "Faith-based community service"
+    ],
+    "interests_normalized": [
+      "Political advocacy",
+      "Climate policy",
+      "Public safety",
+      "Healthcare policy",
+      "Voting rights",
+      "Community service"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Politically sensitive interests (climate, gun policy, healthcare)",
+      "Tests abstraction to neutral categories for visual generation",
+      "Avoids controversial imagery while preserving user intent"
+    ]
+  },
+  {
+    "id": "user_020",
+    "name": "Dr. Anastasia Alexandrovna Konstantinopolous-Vanderbilt III, PhD",
+    "title": "Professor of Neuroscience",
+    "company": "Harvard Medical School",
+    "location": "Cambridge, MA",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "preferred_social_platform": "linkedin",
+    "social_handle": "dr-konstantinopolous",
+    "raw_interests": "My research focuses on neurodegenerative diseases. Outside the lab, I enjoy classical music, particularly opera, and I collect rare first-edition medical textbooks.",
+    "interests": [
+      "Neuroscience research",
+      "Classical music",
+      "Opera",
+      "Rare book collecting"
+    ],
+    "interests_normalized": [
+      "Neuroscience research",
+      "Classical music",
+      "Opera",
+      "Book collecting"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Extreme long name with titles (80+ chars)",
+      "Academic prefix/suffix: Dr. ... PhD",
+      "Tests maximum name truncation strategy"
+    ]
+  },
+  {
+    "id": "user_021",
+    "name": "Chris Anderson",
+    "title": "Fitness Instructor",
+    "company": "Peak Performance Gym",
+    "location": "Miami, FL",
+    "profile_url": "https://dummyjson.com",
+    "preferred_social_platform": "instagram",
+    "social_handle": "@chrisfit",
+    "raw_interests": "I teach CrossFit classes in the morning, Peloton-style cycling at noon, and SoulCycle sessions in the evening. I'm also a certified yoga instructor and love leading outdoor bootcamp classes on the beach.",
+    "interests": [
+      "CrossFit instruction",
+      "Peloton cycling",
+      "SoulCycle instruction",
+      "Yoga instruction",
+      "Beach bootcamps"
+    ],
+    "interests_normalized": [
+      "Fitness training",
+      "Indoor cycling",
+      "Group fitness",
+      "Yoga",
+      "Beach workouts"
+    ],
+    "testing_notes": [
+      "Trademarked fitness brands (CrossFit, Peloton, SoulCycle)",
+      "Tests normalization: CrossFit → Fitness training, Peloton → Indoor cycling"
+    ]
+  },
+  {
+    "id": "user_022",
+    "name": "Jamie Smith-Jones-Williams",
+    "title": "HR Manager",
+    "company": "Corporate Solutions Inc.",
+    "location": "Atlanta, GA",
+    "profile_url": "https://httpbin.org",
+    "raw_interests": "I'm passionate about workplace culture, employee wellness programs, and conflict resolution. Outside work, I love gardening, baking sourdough bread, and volunteering at animal shelters.",
+    "interests": [
+      "Workplace culture",
+      "Employee wellness",
+      "Conflict resolution",
+      "Gardening",
+      "Sourdough baking",
+      "Animal shelter volunteer"
+    ],
+    "interests_normalized": [
+      "Workplace culture",
+      "Employee wellness",
+      "Conflict resolution",
+      "Gardening",
+      "Baking",
+      "Animal shelter volunteer"
+    ],
+    "testing_notes": [
+      "Triple-hyphenated surname (Smith-Jones-Williams)",
+      "Tests rendering of complex hyphenated names"
+    ]
+  },
+  {
+    "id": "user_023",
+    "name": "Dylan Hughes",
+    "title": "Tourism Manager",
+    "company": "Welsh Heritage Trust",
+    "location": "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch, Wales",
+    "profile_url": null,
+    "preferred_social_platform": "facebook",
+    "social_handle": "dylanhughes",
+    "raw_interests": "I promote Welsh culture and heritage tourism. I love hiking through Snowdonia, learning Welsh language and history, and playing rugby.",
+    "interests": [
+      "Welsh culture",
+      "Heritage tourism",
+      "Hiking Snowdonia",
+      "Welsh language",
+      "Rugby"
+    ],
+    "interests_normalized": [
+      "Cultural heritage",
+      "Tourism",
+      "Hiking",
+      "Welsh language",
+      "Rugby"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Extremely long location (58 chars)",
+      "Welsh town: Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
+      "Tests location truncation with ellipsis",
+      "No QR code (tests layout without QR)"
+    ]
+  },
+  {
+    "id": "user_024",
+    "name": "J.D. Martinez",
+    "title": "Data Analyst",
+    "company": "Analytics Pro",
+    "location": "Denver, CO",
+    "profile_url": "https://jsonplaceholder.typicode.com",
+    "preferred_social_platform": "github",
+    "social_handle": "jd-data",
+    "raw_interests": "I work with data visualization, statistical modeling, and machine learning. I love snowboarding in the Rockies, craft beer brewing, and playing guitar.",
+    "interests": [
+      "Data visualization",
+      "Machine learning",
+      "Snowboarding",
+      "Craft beer brewing",
+      "Guitar"
+    ],
+    "interests_normalized": [
+      "Data visualization",
+      "Machine learning",
+      "Snowboarding",
+      "Brewing",
+      "Guitar"
+    ],
+    "testing_notes": [
+      "Name with periods (J.D. Martinez)",
+      "Tests period character handling in name field"
+    ]
+  },
+  {
+    "id": "user_025",
+    "name": "   Skyler   Reed   ",
+    "title": "Mindfulness Coach",
+    "company": "Inner Peace Collective",
+    "location": "Boulder, CO",
+    "pronouns": "they/them",
+    "profile_url": "https://dummyjson.com",
+    "raw_interests": "I guide people on journeys of self-discovery through mindfulness practices, meditation, and breathwork. I'm passionate about personal growth, minimalism, and sustainable living.",
+    "interests": [
+      "Mindfulness",
+      "Meditation",
+      "Breathwork",
+      "Personal growth",
+      "Minimalism",
+      "Sustainable living"
+    ],
+    "interests_normalized": [
+      "Mindfulness",
+      "Meditation",
+      "Breathwork",
+      "Personal growth",
+      "Minimalism",
+      "Sustainability"
+    ],
+    "testing_notes": [
+      "**CRITICAL** Extra whitespace in name ('   Skyler   Reed   ')",
+      "Tests whitespace normalization (trim + collapse)",
+      "Abstract/spiritual interests (Mindfulness, Personal growth)"
+    ]
+  },
+  {
+    "id": "user_026",
+    "name": "Casey Thompson",
+    "title": "Junior Software Developer",
+    "company": "Startup Labs",
+    "location": "Austin, TX",
+    "profile_url": "https://httpbin.org/html",
+    "preferred_social_platform": "github",
+    "social_handle": "caseycodes",
+    "raw_interests": "I'm learning full-stack development and love working on side projects late at night. I attend a lot of hackathons and tech meetups. When I'm not coding, I enjoy gaming, watching anime, and building mechanical keyboards.",
+    "interests": [
+      "Full-stack development",
+      "Side projects coding",
+      "Hackathons",
+      "Tech meetups",
+      "Gaming",
+      "Anime",
+      "Mechanical keyboards"
+    ],
+    "interests_normalized": [
+      "Software development",
+      "Hackathons",
+      "Tech meetups",
+      "Gaming",
+      "Anime",
+      "Mechanical keyboards"
+    ],
+    "testing_notes": [
+      "Entry-level title (Junior Software Developer)",
+      "Profession-adjacent interests (coding, hackathons)",
+      "Tests distinction between job role and personal interests"
+    ]
+  }
+]

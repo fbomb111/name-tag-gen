@@ -1,0 +1,72 @@
+{
+  "id": "professional_template",
+  "name": "Professional Event Template",
+  "colorPalette": {
+    "warmOrange": "#E07A5F",
+    "teal": "#81B29A",
+    "navyBlue": "#3D405B",
+    "goldenYellow": "#F2CC8F",
+    "cream": "#F4F1DE"
+  },
+  "dimensions": {
+    "width": 3,
+    "height": 4,
+    "unit": "inches"
+  },
+  "dpi": 300,
+  "professionalVisualSize": 0.9,
+  "interestBandHeight": 1.35,
+  "fonts": {
+    "name": {
+      "family": "Helvetica-Bold",
+      "size": 18,
+      "color": "#3D405B"
+    },
+    "title": {
+      "family": "Helvetica",
+      "size": 10,
+      "color": "#3D405B"
+    },
+    "company": {
+      "family": "Helvetica",
+      "size": 9,
+      "color": "#81B29A"
+    },
+    "location": {
+      "family": "Helvetica",
+      "size": 9,
+      "color": "#999999"
+    },
+    "event_name": {
+      "family": "Helvetica-Bold",
+      "size": 11,
+      "color": "#3D405B"
+    },
+    "sponsor": {
+      "family": "Helvetica",
+      "size": 7,
+      "color": "#999999"
+    }
+  },
+  "layout": {
+    "event_name": { "x": 0.15, "y": 3.7, "max_width": 1.7, "align": "left" },
+    "sponsor": { "x": 0.15, "y": 3.53, "max_width": 1.7, "align": "left" },
+    "tags": { "x": 0.15, "y": 2.9, "max_width": 2.7, "gap": 0.08 },
+    "name": { "x": 0.9, "y": 2.61, "max_width": 1.95, "align": "left" },
+    "title": { "x": 0.9, "y": 2.35, "max_width": 1.95, "align": "left", "max_lines": 2 },
+    "company": { "x": 0.9, "y": 2.13, "max_width": 1.95, "align": "left" },
+    "location": { "x": 0.9, "y": 1.98, "max_width": 1.95, "align": "left" },
+    "qr_code": { "x": 0.15, "y": 2.12, "size": 0.7 },
+    "event_logo": { "x": 1.95, "y": 2.93, "w": 0.9, "h": 0.9 },
+    "sponsor_logo": { "x": 0.15, "y": 3.25, "w": 0.5, "h": 0.25 },
+    "interests_band": { "x": 0.15, "y": 0.0, "w": 2.7, "h": 2.05 }
+  },
+  "tagStyle": {
+    "bg_color": "#E07A5F",
+    "text_color": "#FFFFFF",
+    "font_size": 8,
+    "padding_h": 0.1,
+    "padding_v": 0.05,
+    "radius": 0.08
+  }
+}

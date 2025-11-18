@@ -1,0 +1,46 @@
+{
+  "colorPalette": {
+    "warmOrange": "#E07A5F",
+    "teal": "#81B29A",
+    "navyBlue": "#3D405B",
+    "goldenYellow": "#F2CC8F",
+    "cream": "#F4F1DE"
+  },
+  "badgeSettings": {
+    "dimensions": {
+      "width": 3,
+      "height": 4,
+      "unit": "inches"
+    },
+    "dpi": 300,
+    "professionalVisualSize": 0.9,
+    "interestBandHeight": 1.8,
+    "fonts": {
+      "name": {
+        "family": "sans-serif",
+        "size": 18,
+        "weight": "bold",
+        "color": "#2C2C2C"
+      },
+      "title": {
+        "family": "sans-serif",
+        "size": 11,
+        "weight": "600",
+        "color": "#3D405B"
+      },
+      "company": {
+        "family": "sans-serif",
+        "size": 10,
+        "weight": "normal",
+        "style": "italic",
+        "color": "#666666"
+      },
+      "location": {
+        "family": "sans-serif",
+        "size": 8,
+        "weight": "normal",
+        "color": "#888888"
+      }
+    }
+  }
+}

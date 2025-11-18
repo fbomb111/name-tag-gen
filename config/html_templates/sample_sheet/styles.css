@@ -1,0 +1,349 @@
+/**
+ * Sample Sheet Styles
+ *
+ * 8.5" × 11" landscape layout with two-column design:
+ * - Left column (~5"): Form data in key:value format
+ * - Right column (~6"): Rendered 3"×4" badge centered
+ *
+ * Professional styling for demonstration/review purposes.
+ */
+
+/* =============================================================================
+ * PAGE SETUP - 8.5" × 11" Landscape
+ * ============================================================================= */
+
+@page {
+    size: letter landscape; /* 11" × 8.5" */
+    margin: 0.5in;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    line-height: 1.4;
+    color: #2D3748;
+    background: white;
+}
+
+.sample-sheet {
+    width: 100%;
+    height: 100%;
+    page-break-inside: avoid; /* Prevent page breaks within the sheet */
+}
+
+/* =============================================================================
+ * HEADER BAR
+ * ============================================================================= */
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.16in 0.3in;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-bottom: 0.12in;
+}
+
+.header-content {
+    font-size: 9pt;
+    line-height: 1;
+}
+
+.header-title {
+    font-weight: 700;
+    opacity: 0.95;
+}
+
+.header-event {
+    font-weight: 600;
+}
+
+.header-attendee {
+    font-weight: 600;
+}
+
+.header-user-id {
+    font-size: 8pt;
+    opacity: 0.75;
+    font-style: italic;
+}
+
+.header-separator {
+    margin: 0 0.08in;
+    opacity: 0.7;
+}
+
+.header-date {
+    font-size: 8pt;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* =============================================================================
+ * TWO-COLUMN LAYOUT
+ * ============================================================================= */
+
+.content {
+    display: flex;
+    gap: 0.3in;
+    max-height: 6.4in; /* Constrain height to prevent overflow */
+}
+
+/* Left Column: Form Data */
+.form-data {
+    flex: 0 0 4.8in;
+    border-right: 2px solid #E2E8F0;
+    padding-right: 0.3in;
+}
+
+.form-data h2 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #1A202C;
+    margin-bottom: 0.06in;
+}
+
+.form-description {
+    font-size: 7.5pt;
+    color: #718096;
+    margin-bottom: 0.12in;
+    font-style: italic;
+}
+
+/* Testing Notes Banner */
+.testing-notes-banner {
+    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+    border-left: 4px solid #F59E0B;
+    padding: 0.08in 0.12in;
+    margin-bottom: 0.12in;
+    border-radius: 0.06in;
+}
+
+.testing-notes-banner h4 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #92400E;
+    margin-bottom: 0.04in;
+}
+
+.testing-notes-banner ul {
+    font-size: 7.5pt;
+    color: #78350F;
+    line-height: 1.3;
+    margin: 0;
+    padding-left: 0.18in;
+}
+
+.testing-notes-banner li {
+    margin-bottom: 0.02in;
+}
+
+/* Right Column: Badge Output */
+.badge-output {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-output h2 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #1A202C;
+    margin-bottom: 0.06in;
+}
+
+.badge-description {
+    font-size: 7.5pt;
+    color: #718096;
+    margin-bottom: 0.1in;
+    font-style: italic;
+}
+
+/* Event info in right column */
+.badge-output .data-section {
+    margin-bottom: 0.1in;
+}
+
+.badge-output .data-section h3 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 0.05in;
+    padding-bottom: 0.03in;
+    border-bottom: 1px solid #CBD5E0;
+}
+
+.badge-output .data-list {
+    font-size: 7.5pt;
+    line-height: 1.3;
+    margin-bottom: 0.1in;
+}
+
+.badge-output .data-row {
+    display: flex;
+    padding: 0.02in 0;
+    border-bottom: 1px solid #F7FAFC;
+}
+
+.badge-output .data-row dt {
+    flex: 0 0 1.2in;
+    font-weight: 600;
+    color: #4A5568;
+    padding-right: 0.08in;
+}
+
+.badge-output .data-row dd {
+    flex: 1;
+    color: #2D3748;
+    word-wrap: break-word;
+}
+
+/* =============================================================================
+ * FORM DATA SECTIONS
+ * ============================================================================= */
+
+.data-section {
+    margin-bottom: 0.12in;
+}
+
+.data-section h3 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 0.05in;
+    padding-bottom: 0.03in;
+    border-bottom: 1px solid #CBD5E0;
+}
+
+/* Definition List Styling */
+.data-list {
+    font-size: 7.5pt;
+    line-height: 1.3;
+}
+
+.data-row {
+    display: flex;
+    padding: 0.02in 0;
+    border-bottom: 1px solid #F7FAFC;
+}
+
+.data-row dt {
+    flex: 0 0 1.5in;
+    font-weight: 600;
+    color: #4A5568;
+    padding-right: 0.1in;
+}
+
+.data-row dd {
+    flex: 1;
+    color: #2D3748;
+    word-wrap: break-word;
+}
+
+/* Special styling for "None" values */
+.data-row dd:contains("None") {
+    color: #A0AEC0;
+    font-style: italic;
+}
+
+/* =============================================================================
+ * ASSIGNMENTS (TAGS) DISPLAY
+ * ============================================================================= */
+
+.assignments-list {
+    font-size: 7.5pt;
+}
+
+.assignment-row {
+    display: flex;
+    align-items: center;
+    padding: 0.03in 0;
+    gap: 0.08in;
+}
+
+.assignment-field {
+    flex: 0 0 1.5in;
+    font-weight: 600;
+    color: #4A5568;
+}
+
+.assignment-value {
+    display: inline-block;
+    padding: 0.04in 0.1in;
+    border-radius: 0.06in;
+    font-size: 8pt;
+    font-weight: 600;
+}
+
+.assignment-type {
+    font-size: 7pt;
+    color: #A0AEC0;
+    font-style: italic;
+}
+
+/* =============================================================================
+ * BADGE CONTAINER
+ * ============================================================================= */
+
+.badge-container {
+    position: relative;
+    width: 3in;
+    height: 4in;
+    margin: 0.08in auto 0.08in auto;
+
+    /* Add subtle shadow for depth */
+    box-shadow: 0 0.05in 0.2in rgba(0, 0, 0, 0.15);
+    border-radius: 0.08in;
+    overflow: hidden;
+
+    /* Center the badge visually */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The badge image (converted from PDF) will inherit these constraints */
+.badge-image {
+    width: 3in;
+    height: 4in;
+    object-fit: contain;
+    display: block;
+    border: 1px solid #CBD5E0;
+    background: white;
+}
+
+.badge-specs {
+    text-align: center;
+    font-size: 6.5pt;
+    color: #718096;
+    line-height: 1.4;
+    margin-top: 0.06in;
+}
+
+.badge-specs p {
+    margin-bottom: 0.01in;
+}
+
+/* =============================================================================
+ * FOOTER
+ * ============================================================================= */
+
+.footer {
+    margin-top: 0.1in;
+    padding-top: 0.1in;
+    border-top: 1px solid #E2E8F0;
+    text-align: center;
+    font-size: 6.5pt;
+    color: #A0AEC0;
+}
+
+.footer p {
+    margin-bottom: 0.03in;
+}

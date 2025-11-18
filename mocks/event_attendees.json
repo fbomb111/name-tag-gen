@@ -1,0 +1,260 @@
+{
+  "cohatch_afterhours": [
+    {
+      "user_id": "user_001",
+      "tags": {
+        "Committee": "Innovation Council",
+        "Years as Member": "2-4",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Healthcare",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_002",
+      "tags": {
+        "Committee": "Member Engagement",
+        "Years as Member": "20+",
+        "Rep": "David Thompson",
+        "Industry": "Hospitality",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_003",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "2-4",
+        "Rep": "Lisa Patterson",
+        "Industry": "Education",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_004",
+      "tags": {
+        "Committee": "Member Engagement",
+        "Years as Member": "1st",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_005",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "5-9",
+        "Rep": "David Thompson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_006",
+      "tags": {
+        "Committee": "Chamber Board",
+        "Years as Member": "10-19",
+        "Rep": "Lisa Patterson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Executive"
+      }
+    },
+    {
+      "user_id": "user_007",
+      "tags": {
+        "Committee": "Innovation Council",
+        "Years as Member": "2-4",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_008",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "1st",
+        "Rep": "David Thompson",
+        "Industry": "Education",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_009",
+      "tags": {
+        "Committee": "Women's Collective",
+        "Years as Member": "5-9",
+        "Rep": "Lisa Patterson",
+        "Industry": "Insurance",
+        "Membership Level": "Corporate Plus"
+      }
+    },
+    {
+      "user_id": "user_010",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "1st",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_011",
+      "tags": {
+        "Committee": "Logistics Council",
+        "Years as Member": "5-9",
+        "Rep": "David Thompson",
+        "Industry": "Logistics",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_012",
+      "tags": {
+        "Committee": "Innovation Council",
+        "Years as Member": "2-4",
+        "Rep": "Lisa Patterson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_013",
+      "tags": {
+        "Committee": "Member Engagement",
+        "Years as Member": "2-4",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_014",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "5-9",
+        "Rep": "David Thompson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_015",
+      "tags": {
+        "Committee": "Member Engagement",
+        "Years as Member": "10-19",
+        "Rep": "Lisa Patterson",
+        "Industry": "Nonprofits",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_016",
+      "tags": {
+        "Committee": "Innovation Council",
+        "Years as Member": "5-9",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Corporate Plus"
+      }
+    },
+    {
+      "user_id": "user_017",
+      "tags": {
+        "Committee": "Innovation Council",
+        "Years as Member": "10-19",
+        "Rep": "David Thompson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Corporate Plus"
+      }
+    },
+    {
+      "user_id": "user_018",
+      "tags": {
+        "Committee": "Small Business",
+        "Years as Member": "1st",
+        "Rep": "Lisa Patterson",
+        "Industry": "Professional Svcs",
+        "Membership Level": "Small Business"
+      }
+    },
+    {
+      "user_id": "user_019",
+      "tags": {
+        "Committee": "Gov Affairs",
+        "Years as Member": "10-19",
+        "Rep": "Jennifer Martinez",
+        "Industry": "Government",
+        "Membership Level": "Corporate"
+      }
+    },
+    {
+      "user_id": "user_020",
+      "tags": {
+        "Committee": "Chamber Board",
+        "Years as Member": "20+",
+        "Rep": "David Thompson",
+        "Industry": "Healthcare",
+        "Membership Level": "Executive"
+      }
+    }
+  ],
+  "short_name_event": [
+    {
+      "user_id": "user_021",
+      "tags": {
+        "Guest Type": "VIP"
+      }
+    },
+    {
+      "user_id": "user_022",
+      "tags": {
+        "Guest Type": "General"
+      }
+    }
+  ],
+  "long_name_event": [
+    {
+      "user_id": "user_023",
+      "tags": {
+        "Attendee Type": "Attendee",
+        "Track": "Cloud"
+      }
+    },
+    {
+      "user_id": "user_024",
+      "tags": {
+        "Attendee Type": "Speaker",
+        "Track": "Data"
+      }
+    }
+  ],
+  "tag_overload": [
+    {
+      "user_id": "user_025",
+      "tags": {
+        "Role": "Attendee",
+        "Experience": "First-Time",
+        "Interest Area": "Cloud",
+        "Company Size": "SMB",
+        "Looking For": "Learning",
+        "Industry": "Other",
+        "Region": "Boulder",
+        "Dietary": "Vegan"
+      }
+    }
+  ],
+  "sponsored_event": [
+    {
+      "user_id": "user_026",
+      "tags": {
+        "Role": "Attendee",
+        "Specialty": "Tech",
+        "Organization": "Startup Labs"
+      }
+    }
+  ],
+  "minimal_event": []
+}

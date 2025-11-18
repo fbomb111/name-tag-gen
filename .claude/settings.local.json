@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python generate_placeholders.py:*)",
+      "Bash(python:*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(cat:*)",
+      "Bash(pip install:*)",
+      "Bash(find:*)",
+      "Bash(python3:*)",
+      "Bash(./.venv/bin/python:*)",
+      "Bash(tree:*)",
+      "Bash(./.venv/bin/pip:*)",
+      "Bash(=2.0.0)",
+      "Bash(/opt/homebrew/bin/brew install:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash([ -f DATA_MAPPING.md ])",
+      "Bash(source:*)",
+      "Bash(pip3 install:*)",
+      "Bash(open:*)",
+      "Bash(brew install:*)",
+      "Bash(gh:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

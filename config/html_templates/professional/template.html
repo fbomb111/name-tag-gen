@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badge</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="badge">
+    <!-- Event Header -->
+    <div class="event-header">
+      <div class="event-name">{{ event_name }}</div>
+      {% if sponsor %}
+      <div class="sponsor">{{ sponsor }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Sponsor Logo -->
+    {% if sponsor_logo_path %}
+    <img src="{{ sponsor_logo_path }}" class="sponsor-logo" alt="Sponsor Logo">
+    {% endif %}
+
+    <!-- Event Logo -->
+    {% if event_logo_path %}
+    <img src="{{ event_logo_path }}" class="event-logo" alt="Event Logo">
+    {% endif %}
+
+    <!-- Tags (Top 2)
+         LAYOUT: First 2 tags, vertically centered in fixed-height container
+         STYLING: Inline styles from Python auto-shrink calculations override CSS defaults
+           - font-size: Calculated by _calculate_tag_row_styling() (8pt, 7.5pt, or 7pt)
+           - padding: Horizontal padding from auto-shrink (0.12in, 0.10in, or 0.08in)
+           - margin-right: Gap between tags from auto-shrink (0.08in, 0.06in, or 0.04in)
+         See badge_renderer_html.py:_calculate_tag_row_styling() for algorithm details
+    -->
+    {% if tag_metadata %}
+    <div class="tags-top">
+      {% for tag in tag_metadata[:2] %}
+      <span class="tag" style="background-color: {{ tag.color }}; font-size: {{ top_tag_styling.font_size }}pt; padding: 0.06in {{ top_tag_styling.padding_h }}in; margin-right: {{ top_tag_styling.gap }}in;">{{ tag.value }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Bottom Row: Tags + Micro Badge
+         LAYOUT: Flexbox with space-between
+           - Standard tags: Left side, grouped in .tags-group container
+           - Micro badge: Right side, aligned independently
+           - Bottom alignment: All tags aligned to same baseline via align-items: flex-end
+
+         CRITICAL: The .tags-group gap MUST be set via inline style (not static CSS)
+         This gap comes from Python auto-shrink calculations and varies per badge based on
+         available width. When a micro badge exists, bottom_max_width is reduced to 2.25in
+         (vs 2.7in without micro badge) to reserve space for the 0.35in circle + gap.
+
+         See badge_renderer_html.py lines 486-501 for width calculation logic
+    -->
+    {% if (tag_metadata and tag_metadata|length > 2) or micro_badge %}
+    <div class="tags-bottom">
+      <!-- Regular tags grouped on left
+           CRITICAL: Dynamic gap from Python calculations, NOT from CSS
+           Tags use auto-shrink styling (font-size, padding) calculated independently
+           for bottom row with reduced max_width if micro badge present
+      -->
+      {% if tag_metadata[2:] %}
+      <div class="tags-group" style="gap: {{ bottom_tag_styling.gap }}in;">
+        {% for tag in tag_metadata[2:] %}
+        <span class="tag" style="background-color: {{ tag.color }}; font-size: {{ bottom_tag_styling.font_size }}pt; padding: 0.06in {{ bottom_tag_styling.padding_h }}in;">{{ tag.value }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Micro badge on right
+           LAYOUT: 0.35in circle, pushed to right via parent's space-between
+           ALIGNMENT: Bottom-aligned with standard tags via parent's align-items: flex-end
+      -->
+      {% if micro_badge %}
+      <span class="micro-badge-identity" style="background-color: {{ micro_badge.color }};">{{ micro_badge.value }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Attendee Info -->
+    <!-- Identity Unit: Name + Location + Pronouns + Social -->
+    <div class="identity-unit">
+      <div class="name" style="{% if name_font_size %}font-size: {{ name_font_size }}pt;{% endif %}">{{ name }}</div>
+      {% if location or pronouns or social_platform %}
+      <div class="identity-row">
+        <div class="location-in-identity">
+          {% if location %}{{ location }}{% endif %}{% if location and pronouns %} {% endif %}{% if pronouns %}({{ pronouns }}){% endif %}
+        </div>
+        {% if social_platform %}
+        <div class="social-in-identity">
+          {% if social_handle %}
+          <span class="social-handle">{{ social_handle }}</span>
+          {% endif %}
+          <i class="fa-brands fa-{{ social_platform }} social-icon"></i>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Separator between identity and professional -->
+    {% if title or company %}
+    <hr class="identity-separator">
+
+    <!-- Professional Block: Graphic + Title + Company -->
+    <div class="professional-info" style="top: {{ professional_top }}in;">
+      {% if location_graphic_path %}
+      <img src="{{ location_graphic_path }}" class="prof-graphic"
+           style="top: {{ graphic_offset }}in;" alt="Location">
+      {% endif %}
+      <div class="prof-text-container" {% if location_graphic_path %}style="margin-left: 0.5in;"{% endif %}>
+        {% if title %}
+        <div class="title">{{ title }}</div>
+        {% endif %}
+        {% if company %}
+        <div class="company">{{ company }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- QR Code -->
+    {% if qr_code_data_uri %}
+    <img src="{{ qr_code_data_uri }}" class="qr-code" alt="Profile QR Code">
+    {% endif %}
+
+    <!-- Interests Band -->
+    {% if interests_image_path %}
+    <img src="{{ interests_image_path }}" class="interests-band" style="bottom: {{ interests_bottom }}in; width: {{ interests_width }}in; height: {{ interests_height }}in; left: {{ 0.15 + interests_left_offset }}in;" alt="Interests">
+    {% endif %}
+  </div>
+</body>
+</html>

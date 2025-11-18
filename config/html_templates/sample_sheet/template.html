@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Sheet - {{ attendee.name }} - {{ event.display_name }}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sample-sheet">
+        <!-- Header Bar -->
+        <div class="header">
+            <div class="header-content">
+                <span class="header-title">Sample Sheet:</span>
+                <span class="header-event">{{ event.display_name }}</span>
+                <span class="header-separator">•</span>
+                <span class="header-attendee">{{ attendee.name }}</span>
+                <span class="header-separator">•</span>
+                <span class="header-user-id">({{ attendee.id }})</span>
+                <span class="header-separator">|</span>
+                <span class="header-date">Generated {{ generation_date }}</span>
+            </div>
+        </div>
+
+        <!-- Two-Column Layout -->
+        <div class="content">
+            <!-- Left Column: Attendee Data -->
+            <div class="form-data">
+                <!-- Testing Notes (if present) -->
+                {% if form_data.testing_notes %}
+                <div class="testing-notes-banner">
+                    <h4>⚠️ Test Case Notes</h4>
+                    <ul>
+                        {% for note in form_data.testing_notes %}
+                        <li>{{ note }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- Attendee Information -->
+                <section class="data-section">
+                    <h3>Attendee Information</h3>
+                    <dl class="data-list">
+                        {% for key, value in form_data.attendee_info.items() %}
+                        <div class="data-row">
+                            <dt>{{ key }}</dt>
+                            <dd>{{ value }}</dd>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                </section>
+
+                <!-- Interests -->
+                <section class="data-section">
+                    <h3>Interests</h3>
+                    <dl class="data-list">
+                        {% for key, value in form_data.interests.items() %}
+                        <div class="data-row">
+                            <dt>{{ key }}</dt>
+                            <dd>{{ value }}</dd>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                </section>
+
+                <!-- Event-Specific Tags -->
+                <section class="data-section">
+                    <h3>Event-Specific Tags</h3>
+                    <div class="assignments-list">
+                        {% for assignment in form_data.assignments %}
+                        <div class="assignment-row">
+                            <span class="assignment-field">{{ assignment.field }}:</span>
+                            <span class="assignment-value" style="background-color: {{ assignment.color }}; color: white;">
+                                {{ assignment.value }}
+                            </span>
+                            <span class="assignment-type">({{ assignment.display_type }})</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Event Info & Rendered Badge -->
+            <div class="badge-output">
+                <!-- Event Information -->
+                <section class="data-section">
+                    <h3>Event Information</h3>
+                    <dl class="data-list">
+                        {% for key, value in form_data.event_info.items() %}
+                        <div class="data-row">
+                            <dt>{{ key }}</dt>
+                            <dd>{{ value }}</dd>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                </section>
+
+                <div class="badge-container">
+                    <!-- Embed the actual badge PDF as an image -->
+                    <img src="{{ badge_image_data }}" alt="Badge for {{ attendee.name }}" class="badge-image">
+                </div>
+
+                <div class="badge-specs">
+                    <p><strong>Physical Dimensions:</strong> 3 inches × 4 inches</p>
+                    <p><strong>Print Quality:</strong> 300 DPI recommended</p>
+                    <p><strong>Template:</strong> {{ event.template_id }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>This is a sample demonstration sheet showing input data and corresponding badge output.</p>
+            <p>For questions or modifications, contact the event organizer.</p>
+        </div>
+    </div>
+</body>
+</html>
