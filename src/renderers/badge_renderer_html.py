@@ -582,3 +582,26 @@ class BadgeRendererHTML:
             str(output_path),
             stylesheets=[CSS(string=self.css_content)]
         )
+
+    def render_to_bytes(self, event: 'Event', attendee: Attendee,
+                        event_attendee: 'EventAttendee') -> bytes:
+        """
+        Render a badge to PDF bytes (for Azure Functions / API responses).
+
+        Args:
+            event: Event data
+            attendee: Attendee data
+            event_attendee: Event attendee with tag assignments
+
+        Returns:
+            PDF file as bytes
+        """
+        # Generate HTML content
+        html_content = self._prepare_badge_html(attendee, event_attendee.tags)
+
+        # Generate PDF with WeasyPrint and return as bytes
+        pdf_bytes = HTML(string=html_content, base_url=str(self.template_dir)).write_pdf(
+            stylesheets=[CSS(string=self.css_content)]
+        )
+
+        return pdf_bytes

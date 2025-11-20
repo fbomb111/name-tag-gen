@@ -1,0 +1,20 @@
+{
+  "event_id": "cohatch_afterhours",
+  "name": "Test User",
+  "email": "test@example.com",
+  "title": "Software Engineer",
+  "company": "Test Corp",
+  "location": "Columbus, OH",
+  "interests": "coding, hiking, photography",
+  "profile_url": "https://example.com/profile/testuser",
+  "preferred_social_platform": "linkedin",
+  "social_handle": "testuser",
+  "pronouns": "they/them",
+  "tags": {
+    "Committee": "Innovation & Transformation Council",
+    "Years as Member": "5-9 years",
+    "Rep": "Cameron Wright",
+    "Industry": "Technology",
+    "Membership Level": "Corporate Plus"
+  }
+}

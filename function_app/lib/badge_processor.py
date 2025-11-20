@@ -13,8 +13,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.models import Event, Attendee, EventAttendee
 from src.renderers.badge_renderer_html import BadgeRendererHTML
-from scripts.generate_ai_prompts import generate_prompts_for_attendee
-from scripts.generate_images import generate_image_from_prompt
+from scripts.generate_ai_prompts import (
+    generate_interests_illustration_prompt,
+    load_template
+)
+from scripts.generate_images import generate_image
 
 
 class BadgeProcessor:
@@ -130,9 +133,11 @@ class BadgeProcessor:
     ) -> Path:
         """Generate AI image for attendee interests"""
 
+        # Load template for prompt generation
+        template = load_template(event.template_id)
+
         # Generate AI prompt
-        prompts = generate_prompts_for_attendee(attendee, event, user_id)
-        interests_prompt = prompts.get('interests_illustration_prompt')
+        interests_prompt = generate_interests_illustration_prompt(attendee, template)
 
         if not interests_prompt:
             return None
@@ -143,10 +148,15 @@ class BadgeProcessor:
 
         interests_image_path = output_dir / "interests_illustration.png"
 
-        generate_image_from_prompt(
+        # Call Azure OpenAI to generate image
+        image_bytes = generate_image(
             prompt=interests_prompt,
-            output_path=interests_image_path,
-            image_type="interests"
+            size="1536x1024",  # Horizontal format for interests illustration
+            quality="medium"
         )
+
+        # Write bytes to file
+        with open(interests_image_path, 'wb') as f:
+            f.write(image_bytes)
 
         return interests_image_path

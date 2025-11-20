@@ -35,7 +35,8 @@
       "Bash(az functionapp create:*)",
       "Bash(FUNC_NAME=\"func-name-tag-gen-66802\")",
       "Bash(az functionapp config appsettings set:*)",
-      "Bash(az functionapp deployment list-publishing-profiles:*)"
+      "Bash(az functionapp deployment list-publishing-profiles:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
