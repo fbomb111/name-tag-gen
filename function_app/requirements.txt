@@ -1,0 +1,26 @@
+# Azure Functions Runtime
+azure-functions>=1.18.0
+
+# Azure Services
+azure-storage-blob>=12.19.0
+azure-identity>=1.15.0
+
+# PDF Generation & Rendering
+weasyprint>=62.0
+reportlab==4.2.2
+svglib==1.5.1
+Pillow==10.4.0
+qrcode==7.4.2
+
+# Email
+sendgrid>=6.11.0
+
+# AI/OpenAI
+openai>=1.12.0
+
+# Data Validation
+pydantic>=2.7,<3
+
+# Utilities
+requests==2.32.3
+python-dotenv>=1.0.0

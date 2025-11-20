@@ -24,7 +24,18 @@
       "Bash(gh:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git commit:*)",
+      "Bash(func:*)",
+      "Bash(timeout 10 func start:*)",
+      "Bash(az group create:*)",
+      "Bash(echo:*)",
+      "Bash(az storage account create:*)",
+      "Bash(az storage container create:*)",
+      "Bash(az functionapp create:*)",
+      "Bash(FUNC_NAME=\"func-name-tag-gen-66802\")",
+      "Bash(az functionapp config appsettings set:*)",
+      "Bash(az functionapp deployment list-publishing-profiles:*)"
     ],
     "deny": [],
     "ask": []

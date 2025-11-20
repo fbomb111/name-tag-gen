@@ -27,7 +27,11 @@ output/
 *.bak
 
 # IDE
-.vscode/
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
@@ -49,3 +53,11 @@ htmlcov/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Azure Functions
+function_app/local.settings.json
+function_app/.python_packages/
+function_app/__blobstorage__/
+function_app/__queuestorage__/
+function_app/__azurite_db*__.json
+function_app/.funcignore

@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "func: host start",
+      "type": "shell",
+      "command": "cd function_app && func start --port 7072 --python-debugger-port 9092",
+      "isBackground": true,
+      "problemMatcher": "$func-python-watch"
+    }
+  ]
+}

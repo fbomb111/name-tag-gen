@@ -1,0 +1,157 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "COHATCH AfterHours (Full Workflow)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "cohatch_afterhours"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "COHATCH AfterHours (Badges Only)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "cohatch_afterhours",
+        "--badges-only"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Spring Block Party (Full Workflow)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "neighborhood_gathering"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Spring Block Party (Badges Only)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "neighborhood_gathering",
+        "--badges-only"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "CoHatch Afterhours (Full Workflow)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "afterhours_networking_at_cohatch"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "CoHatch Afterhours (Badges Only)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "afterhours_networking_at_cohatch",
+        "--badges-only"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Logistics Council (Full Workflow)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "columbus_region_logistics_council"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Logistics Council (Badges Only)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate_all.py",
+      "args": [
+        "--event",
+        "columbus_region_logistics_council",
+        "--badges-only"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Hot Reload: Priya's Badge",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/dev/watch_and_reload.py",
+      "args": [
+        "neighborhood_gathering_user_003"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Azure Functions: Attach",
+      "type": "python",
+      "request": "attach",
+      "port": 9092,
+      "host": "localhost",
+      "preLaunchTask": "func: host start",
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/function_app",
+          "remoteRoot": "/azure-functions-host/workers/python"
+        }
+      ]
+    }
+  ]
+}

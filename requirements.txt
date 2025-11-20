@@ -1,12 +1,31 @@
+# PDF Generation & Image Processing
 reportlab==4.2.2
 svglib==1.5.1
 Pillow==10.4.0
 qrcode==7.4.2
 pdf2image>=1.16.0
 pypdf>=4.0.0
+weasyprint>=62.0
+
+# HTTP & API
 requests==2.32.3
+
+# Data Validation & Config
 pydantic>=2.7,<3
 PyYAML>=6.0
 python-dotenv>=1.0.0
+
+# Utilities
 watchdog>=6.0.0
 numpy>=2.0.0
+
+# Azure Functions & Services
+azure-functions>=1.18.0
+azure-storage-blob>=12.19.0
+azure-identity>=1.15.0
+
+# Email
+sendgrid>=6.11.0
+
+# AI/OpenAI
+openai>=1.12.0
