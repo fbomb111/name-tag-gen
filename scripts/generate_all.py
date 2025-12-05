@@ -11,7 +11,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# Add project root to path for imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.utils.paths import PROJECT_ROOT as ROOT
 
 
 def run_command(cmd: list[str], description: str) -> bool:

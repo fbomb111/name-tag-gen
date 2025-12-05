@@ -11,21 +11,29 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.models import Event, Attendee, EventAttendee
+from src.utils.paths import PROJECT_ROOT as ROOT, get_working_dir, get_config_dir, get_mocks_dir
 
-ROOT = Path(__file__).resolve().parent.parent
-WORKING_DIR = ROOT / "output" / "working"
+# Lazy initialization - don't create directories at import time (fails in Azure's read-only filesystem)
+_working_dir = None
+
+def _get_working_dir_lazy():
+    """Get working directory lazily (only when needed, not at import time)."""
+    global _working_dir
+    if _working_dir is None:
+        _working_dir = get_working_dir()
+    return _working_dir
 
 
 def load_template(template_id: str) -> dict:
     """Load a template from JSON file."""
-    template_path = ROOT / "config" / "badge_templates" / f"{template_id}.json"
+    template_path = get_config_dir() / "badge_templates" / f"{template_id}.json"
     with open(template_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_events() -> dict[str, Event]:
     """Load events from JSON."""
-    events_path = ROOT / "mocks" / "events.json"
+    events_path = get_mocks_dir() / "events.json"
     with open(events_path, "r", encoding="utf-8") as f:
         events_data = json.load(f)
     return {evt["event_id"]: Event.model_validate(evt) for evt in events_data}
@@ -33,7 +41,7 @@ def load_events() -> dict[str, Event]:
 
 def load_attendees() -> list[Attendee]:
     """Load attendees from JSON."""
-    attendees_path = ROOT / "mocks" / "attendees.json"
+    attendees_path = get_mocks_dir() / "attendees.json"
     with open(attendees_path, "r", encoding="utf-8") as f:
         attendees_data = json.load(f)
     return [Attendee.model_validate(a) for a in attendees_data]
@@ -41,7 +49,7 @@ def load_attendees() -> list[Attendee]:
 
 def load_event_mapping() -> dict[str, list[EventAttendee]]:
     """Load mapping of event_id -> [EventAttendee objects]."""
-    mapping_path = ROOT / "mocks" / "event_attendees.json"
+    mapping_path = get_mocks_dir() / "event_attendees.json"
     with open(mapping_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return {
@@ -277,7 +285,7 @@ def main():
             interests_prompt = generate_interests_illustration_prompt(attendee, template)
 
             # Save individual prompt files in event/user structure
-            event_dir = WORKING_DIR / event.event_id
+            event_dir = _get_working_dir_lazy() / event.event_id
             attendee_dir = event_dir / attendee.id / "ai_prompts"
             attendee_dir.mkdir(parents=True, exist_ok=True)
 
@@ -300,13 +308,14 @@ def main():
             print(f"  → {attendee_dir.relative_to(ROOT)}/")
 
     # Save summary JSON
-    summary_path = WORKING_DIR / "prompts_summary.json"
+    working_dir = _get_working_dir_lazy()
+    summary_path = working_dir / "prompts_summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(all_prompts, f, indent=2)
 
     print("\n" + "=" * 70)
     print(f"✅ Generated {len(all_prompts)} prompt sets")
-    print(f"📁 Output directory: {WORKING_DIR}")
+    print(f"📁 Output directory: {working_dir}")
     print(f"📄 Summary: {summary_path.relative_to(ROOT)}")
     print("=" * 70)
 

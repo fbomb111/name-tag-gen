@@ -33,26 +33,32 @@ class EmailClient:
         badge_pdf: bytes,
         badge_preview: Optional[bytes],
         attendee_name: str,
-        event_id: str
+        event_name: str,
+        recipient_email: Optional[str] = None
     ) -> dict:
         """
-        Send "Badge is Ready" email to event organizer
+        Send "Badge is Ready" email with attached PDF badge.
 
         Args:
             badge_pdf: PDF badge file as bytes
             badge_preview: Preview image as bytes (optional)
             attendee_name: Name of the attendee
-            event_id: Event identifier
+            event_name: Human-readable event name (e.g., "AfterHours at COHATCH")
+            recipient_email: Email address to send to (defaults to organizer if not provided)
 
         Returns:
             Response from SendGrid API
         """
-        logging.info(f"Sending badge ready email for {attendee_name}")
+        to_email = recipient_email or self.organizer_email
+        if not to_email:
+            raise ValueError("No recipient email provided and EVENT_ORGANIZER_EMAIL not configured")
+
+        logging.info(f"Sending badge ready email for {attendee_name} to {to_email}")
 
         # Create message
         message = Mail(
             from_email=(self.from_email, self.from_name),
-            to_emails=self.organizer_email
+            to_emails=to_email
         )
 
         # Use dynamic template if configured
@@ -60,7 +66,7 @@ class EmailClient:
             message.template_id = self.template_badge_ready
             message.dynamic_template_data = {
                 'attendee_name': attendee_name,
-                'event_id': event_id,
+                'event_name': event_name,
                 'preview_available': badge_preview is not None
             }
         else:
@@ -99,7 +105,7 @@ class EmailClient:
             return {
                 'status': 'sent',
                 'status_code': response.status_code,
-                'recipient': self.organizer_email
+                'recipient': to_email
             }
         except Exception as e:
             logging.error(f"Failed to send email: {str(e)}")

@@ -365,6 +365,76 @@ python scripts/generate_all_badges.py --event cohatch_afterhours
 
 ---
 
+## Azure Deployment
+
+The badge generation system runs as an Azure Function for production use. See `DEPLOYMENT.md` for full setup instructions.
+
+### Deploy Commands
+
+```bash
+# Full deployment (sync + validate + deploy)
+./scripts/deploy-function.sh
+
+# Sync files only, skip Azure deploy
+./scripts/deploy-function.sh --no-deploy
+
+# Preview changes (dry run)
+./scripts/deploy-function.sh --dry-run
+
+# Validate imports before deploying
+python function_app/test-imports.py
+```
+
+### Function Endpoints
+
+| Endpoint | URL |
+|----------|-----|
+| Health Check | `https://func-name-tag-gen-66802.azurewebsites.net/api/health` |
+| Process Badge | `https://func-name-tag-gen-66802.azurewebsites.net/api/process-badge` |
+
+---
+
+## Environment Variables
+
+### Azure OpenAI Credentials
+
+The image generation supports two naming conventions for flexibility:
+
+| Variable | Environment | Purpose |
+|----------|-------------|---------|
+| `AZURE_OPENAI_API_KEY` | Azure | Image generation API key |
+| `AZURE_OPENAI_ENDPOINT` | Azure | Image generation endpoint |
+| `AZUREAI_API_CUSTOM_API_KEY` | Local | Image generation API key (alternative) |
+| `AZUREAI_API_CUSTOM_BASE_URL` | Local | Image generation endpoint (alternative) |
+
+The code checks both naming conventions via fallback logic in `scripts/generate_images.py`.
+
+### Azure Environment Detection
+
+| Variable | Value | Purpose |
+|----------|-------|---------|
+| `ENVIRONMENT` | `prod` | Primary flag for Azure-specific behavior |
+
+Detection logic in `src/utils/paths.py`:
+
+1. **Primary**: `ENVIRONMENT=prod` (explicit, most reliable)
+2. **Fallback**: Azure-specific env vars (`WEBSITE_INSTANCE_ID`, `FUNCTIONS_WORKER_RUNTIME`, etc.)
+
+### Why This Matters: Azure Read-Only Filesystem
+
+Azure Functions uses a read-only squashfs filesystem. The `output/` directory cannot be created at `/home/site/wwwroot/`. When `ENVIRONMENT=prod`:
+
+- Output files go to `/tmp/badge_output/` (writable)
+- Scripts use **lazy initialization** to avoid directory creation at import time
+
+Key files with lazy initialization:
+
+- `scripts/generate_ai_prompts.py` - `_get_working_dir_lazy()`
+- `scripts/generate_images.py` - `_get_working_dir_lazy()`
+- `src/utils/paths.py` - `get_output_dir()` returns `/tmp/badge_output` in Azure
+
+---
+
 ## Event Configuration
 
 ### All Events
@@ -699,6 +769,7 @@ Create new template by:
 
 ## Related Documentation
 
+- `DEPLOYMENT.md` - Azure deployment setup and configuration
 - `docs/DESIGN.md` - Visual design specifications
 - `docs/DATA_MAPPING.md` - Attendee data structure
 - `README.md` - Project overview and setup

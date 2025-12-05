@@ -68,8 +68,8 @@ class BadgeRendererHTML:
             self.tag_display_type_map[category.name] = category.display_type
 
         # Cache directory for location graphics
-        self.location_cache_dir = Path("output/location_graphics")
-        self.location_cache_dir.mkdir(parents=True, exist_ok=True)
+        from src.utils.paths import get_location_graphics_dir
+        self.location_cache_dir = get_location_graphics_dir()
 
         # Location normalizer for handling user input
         self.location_normalizer = LocationNormalizer()
@@ -444,9 +444,9 @@ class BadgeRendererHTML:
         )
 
         if has_interests:
+            from src.utils.paths import get_working_dir
             interests_image_path = (
-                Path(__file__).parent.parent.parent /
-                "output" / "working" / self.event_id / attendee.id /
+                get_working_dir(self.event_id, attendee.id) /
                 "generated_images" / "interests_illustration.png"
             )
 

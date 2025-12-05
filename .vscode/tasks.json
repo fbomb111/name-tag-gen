@@ -2,9 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Kill Port 7072",
+      "type": "shell",
+      "command": "lsof -ti:7072 | xargs kill -9 2>/dev/null || true",
+      "problemMatcher": []
+    },
+    {
       "label": "func: host start",
       "type": "shell",
-      "command": "cd function_app && func start --port 7072 --python-debugger-port 9092",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "source function_app/.venv/bin/activate && cd function_app && func start --port 7072 --python-debugger-port 9092"
+      ],
+      "options": {
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}"
+        }
+      },
       "isBackground": true,
       "problemMatcher": "$func-python-watch"
     }

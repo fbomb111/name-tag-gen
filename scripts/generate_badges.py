@@ -12,22 +12,22 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.models import Event, Attendee, EventAttendee
 from src.renderers.badge_renderer_json import BadgeRendererJSON
+from src.utils.paths import get_badges_dir, get_working_dir, get_config_dir, get_mocks_dir
 
-ROOT = Path(__file__).resolve().parent.parent
-BADGES_DIR = ROOT / "output" / "badges"
-WORKING_DIR = ROOT / "output" / "working"
+BADGES_DIR = get_badges_dir()
+WORKING_DIR = get_working_dir()
 
 
 def load_template(template_id: str) -> dict:
     """Load a template from JSON file."""
-    template_path = ROOT / "config" / "badge_templates" / f"{template_id}.json"
+    template_path = get_config_dir() / "badge_templates" / f"{template_id}.json"
     with open(template_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_events() -> dict[str, Event]:
     """Load events from JSON."""
-    events_path = ROOT / "mocks" / "events.json"
+    events_path = get_mocks_dir() / "events.json"
     with open(events_path, "r", encoding="utf-8") as f:
         events_data = json.load(f)
     return {evt["event_id"]: Event.model_validate(evt) for evt in events_data}
@@ -35,7 +35,7 @@ def load_events() -> dict[str, Event]:
 
 def load_attendees() -> list[Attendee]:
     """Load attendees from JSON."""
-    attendees_path = ROOT / "mocks" / "attendees.json"
+    attendees_path = get_mocks_dir() / "attendees.json"
     with open(attendees_path, "r", encoding="utf-8") as f:
         attendees_data = json.load(f)
     return [Attendee.model_validate(a) for a in attendees_data]
@@ -43,7 +43,7 @@ def load_attendees() -> list[Attendee]:
 
 def load_event_mapping() -> dict[str, list[EventAttendee]]:
     """Load mapping of event_id -> [EventAttendee objects]."""
-    mapping_path = ROOT / "mocks" / "event_attendees.json"
+    mapping_path = get_mocks_dir() / "event_attendees.json"
     with open(mapping_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return {

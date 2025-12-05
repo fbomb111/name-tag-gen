@@ -140,6 +140,22 @@
       }
     },
     {
+      "name": "Azure Functions: Start (No Debug)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "source ${workspaceFolder}/function_app/.venv/bin/activate && func start --port 7072"
+      ],
+      "cwd": "${workspaceFolder}/function_app",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "console": "integratedTerminal",
+      "preLaunchTask": "Kill Port 7072"
+    },
+    {
       "name": "Azure Functions: Attach",
       "type": "python",
       "request": "attach",
@@ -152,6 +168,42 @@
           "remoteRoot": "/azure-functions-host/workers/python"
         }
       ]
+    },
+    {
+      "name": "Test Local Function (Random Attendee)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/test_local_function.py",
+      "args": [
+        "--email",
+        "frankievcleary@gmail.com",
+        "--event",
+        "cohatch_afterhours"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Test Local Function (Specific Attendee)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/test_local_function.py",
+      "args": [
+        "--attendee",
+        "user_001",
+        "--email",
+        "frankievcleary@gmail.com",
+        "--event",
+        "cohatch_afterhours"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
     }
   ]
 }

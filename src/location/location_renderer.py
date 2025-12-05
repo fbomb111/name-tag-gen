@@ -473,7 +473,8 @@ def render_location_graphic(location_str: str, output_path: Path,
     """
     # Default data directory (project root / data / natural_earth)
     if data_dir is None:
-        data_dir = Path(__file__).parent.parent.parent / "data" / "natural_earth"
+        from src.utils.paths import get_data_dir
+        data_dir = get_data_dir() / "natural_earth"
 
     try:
         # Parse location

@@ -18,24 +18,46 @@ from dotenv import load_dotenv
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from scripts.image_processing.crop_interests_image import crop_interests_image
+from src.utils.paths import PROJECT_ROOT as ROOT, get_working_dir
 
 # Load environment variables
 load_dotenv()
 
-ROOT = Path(__file__).resolve().parent.parent
-WORKING_DIR = ROOT / "output" / "working"
+# Lazy initialization - don't create directories at import time (fails in Azure's read-only filesystem)
+_working_dir = None
 
-# Azure OpenAI settings
-API_KEY = os.getenv("AZUREAI_API_CUSTOM_API_KEY")
-BASE_URL = os.getenv("AZUREAI_API_CUSTOM_BASE_URL")
+def _get_working_dir_lazy():
+    """Get working directory lazily (only when needed, not at import time)."""
+    global _working_dir
+    if _working_dir is None:
+        _working_dir = get_working_dir()
+    return _working_dir
+
+# Azure OpenAI settings - loaded lazily to allow module import without env vars
 API_VERSION = "2025-04-01-preview"
 DEPLOYMENT_NAME = "gpt-image-1"
 
-if not API_KEY or not BASE_URL:
-    raise ValueError("Missing AZUREAI_API_CUSTOM_API_KEY or AZUREAI_API_CUSTOM_BASE_URL in .env file")
 
-# Construct endpoint URL
-ENDPOINT_URL = f"{BASE_URL.rstrip('/')}/openai/deployments/{DEPLOYMENT_NAME}/images/generations?api-version={API_VERSION}"
+def _get_azure_config():
+    """Get Azure OpenAI configuration, raising error if not configured.
+
+    Supports two naming conventions:
+    - Local dev: AZUREAI_API_CUSTOM_API_KEY, AZUREAI_API_CUSTOM_BASE_URL
+    - Azure: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT
+    """
+    # Try both naming conventions
+    api_key = os.getenv("AZUREAI_API_CUSTOM_API_KEY") or os.getenv("AZURE_OPENAI_API_KEY")
+    base_url = os.getenv("AZUREAI_API_CUSTOM_BASE_URL") or os.getenv("AZURE_OPENAI_ENDPOINT")
+
+    if not api_key or not base_url:
+        raise ValueError(
+            "Missing Azure OpenAI credentials. "
+            "Set AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT in Azure Function App settings, "
+            "or AZUREAI_API_CUSTOM_API_KEY and AZUREAI_API_CUSTOM_BASE_URL in local .env file."
+        )
+
+    endpoint_url = f"{base_url.rstrip('/')}/openai/deployments/{DEPLOYMENT_NAME}/images/generations?api-version={API_VERSION}"
+    return api_key, endpoint_url
 
 
 def generate_image(
@@ -56,9 +78,11 @@ def generate_image(
     Returns:
         bytes: The generated image data
     """
+    api_key, endpoint_url = _get_azure_config()
+
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {API_KEY}"
+        "Authorization": f"Bearer {api_key}"
     }
 
     payload = {
@@ -70,8 +94,21 @@ def generate_image(
         "n": 1
     }
 
-    print(f"  Calling Azure OpenAI API...")
-    response = requests.post(ENDPOINT_URL, headers=headers, json=payload)
+    import logging
+    import time
+
+    logging.info(f"  Calling Azure OpenAI API (size: {size}, quality: {quality})...")
+    start_time = time.time()
+
+    try:
+        response = requests.post(endpoint_url, headers=headers, json=payload, timeout=120)
+    except requests.exceptions.Timeout:
+        raise Exception("Azure OpenAI API request timed out after 120 seconds")
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"Network error calling Azure OpenAI API: {str(e)}")
+
+    elapsed = time.time() - start_time
+    logging.info(f"  Azure OpenAI API responded in {elapsed:.1f}s (status: {response.status_code})")
 
     if response.status_code != 200:
         raise Exception(f"API request failed with status {response.status_code}: {response.text}")
@@ -163,8 +200,9 @@ def process_attendee_prompts(event_id: str, user_id: str, skip_professional: boo
     print(f"{'='*70}")
 
     # Paths
-    prompts_dir = WORKING_DIR / event_id / user_id / "ai_prompts"
-    output_dir = WORKING_DIR / event_id / user_id / "generated_images"
+    working_dir = _get_working_dir_lazy()
+    prompts_dir = working_dir / event_id / user_id / "ai_prompts"
+    output_dir = working_dir / event_id / user_id / "generated_images"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Process professional visual prompt
@@ -284,11 +322,12 @@ def main():
         print("❌ Error: Cannot use both --professional-only and --interests-only flags")
         return
 
+    working_dir = _get_working_dir_lazy()
+
     print("="*70)
     print("Azure OpenAI Image Generator (GPT Image 1)")
     print("="*70)
-    print(f"API Endpoint: {ENDPOINT_URL}")
-    print(f"Output Directory: {WORKING_DIR.relative_to(ROOT)}")
+    print(f"Output Directory: {working_dir.relative_to(ROOT)}")
 
     if args.professional_only:
         print("Mode: Professional visuals only")
@@ -304,13 +343,13 @@ def main():
     print(f"Background normalization: {'enabled' if remove_bg else 'disabled'}")
 
     # Find all event directories
-    if not WORKING_DIR.exists():
+    if not working_dir.exists():
         print("\n❌ No working directory found! Run generate_ai_prompts.py first.")
         return
 
     # Collect all event/user pairs to process
     attendees_to_process = []
-    for event_dir in WORKING_DIR.iterdir():
+    for event_dir in working_dir.iterdir():
         if not event_dir.is_dir():
             continue
 
@@ -350,7 +389,7 @@ def main():
 
     print("\n" + "="*70)
     print("✅ Image generation complete!")
-    print(f"📁 Images saved to: {WORKING_DIR.relative_to(ROOT)}")
+    print(f"📁 Images saved to: {working_dir.relative_to(ROOT)}")
     print("="*70)
 
     print("\nNext steps:")

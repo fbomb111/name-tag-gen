@@ -61,3 +61,20 @@ function_app/__blobstorage__/
 function_app/__queuestorage__/
 function_app/__azurite_db*__.json
 function_app/.funcignore
+function_app/.venv/
+
+# Deployment copies (synced from root by deploy-function.sh)
+# These are copies, not source - the originals are in project root
+function_app/assets/
+function_app/config/
+function_app/data/
+function_app/mocks/
+function_app/scripts/
+function_app/src/
+
+# Google OAuth credentials (sensitive)
+scripts/credentials.json
+scripts/token.json
+
+# Claude local settings
+.claude/settings.local.json
